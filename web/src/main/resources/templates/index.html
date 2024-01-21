@@ -6,8 +6,9 @@
     <title>home page</title>
 </head>
 <body>
+<h1 th:text = "${msg}"></h1>
 <h1>Create User</h1>
-<form action="userinfo">
+<form action="userinfo" method = "post">
     <h3>ID</h3>
     <input type="text" name = "id">
     <h3>Name</h3>

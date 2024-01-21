@@ -5,13 +5,21 @@ import com.firstproject.web.model.FormInfo;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
+@ControllerAdvice
 public class MainController {
+
+
+    @ModelAttribute
+    public void welcome(ModelMap m) {
+        m.addAttribute("msg", "welcome to home page");
+    }
     @RequestMapping("/home")
     public String index () {
         return "index.html";
@@ -44,8 +52,21 @@ public class MainController {
 //        mv.setViewName("userinfo.html");
 //        return mv;
 //    }
-    @RequestMapping("/userinfo")
+    @PostMapping("/userinfo")
+//    @RequestMapping(value = "/userinfo", method = RequestMethod.POST)
     public String userinfo(@ModelAttribute("f") FormInfo f) {
         return "userinfo.html";
+    }
+
+    @GetMapping("/pInfo")
+    public ModelAndView allProgrammer() {
+        ModelAndView mv = new ModelAndView();
+        List<FormInfo> f = new ArrayList<FormInfo>();
+        f.add(new FormInfo(1, "Asik", "Django"));
+        f.add(new FormInfo(2, "Sala vai", "Python"));
+        f.add(new FormInfo(3, "Mahir", "Java"));
+        mv.addObject("f", f);
+        mv.setViewName("programmersInfo.html");
+        return mv;
     }
 }

@@ -2,6 +2,8 @@ package com.firstproject.web.controller;
 
 import ch.qos.logback.core.model.Model;
 import com.firstproject.web.model.FormInfo;
+import com.firstproject.web.repository.ProgrammerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,13 +17,17 @@ import java.util.List;
 @ControllerAdvice
 public class MainController {
 
+    @Autowired
+    ProgrammerRepo pr;
 
     @ModelAttribute
     public void welcome(ModelMap m) {
+
         m.addAttribute("msg", "welcome to home page");
     }
     @RequestMapping("/home")
     public String index () {
+
         return "index.html";
     }
 //    @RequestMapping("/userinfo")
@@ -55,6 +61,7 @@ public class MainController {
     @PostMapping("/userinfo")
 //    @RequestMapping(value = "/userinfo", method = RequestMethod.POST)
     public String userinfo(@ModelAttribute("f") FormInfo f) {
+        pr.save(f);
         return "userinfo.html";
     }
 

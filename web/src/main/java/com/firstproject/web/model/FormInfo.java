@@ -1,12 +1,19 @@
 package com.firstproject.web.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class FormInfo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
+    @Column(name = "Programmer_name")
     public String name;
     public String lang;
     public FormInfo() {
 
     }
+
 
     public FormInfo(int id, String name, String lang) {
         this.id = id;
